@@ -1,0 +1,5 @@
+1. Build locally
+mvn clean package
+2. Build docker image and run
+docker build . -t ing-demo:1.0
+docker run
