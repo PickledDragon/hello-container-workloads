@@ -11,18 +11,21 @@ import java.net.InetAddress;
 @Path("/hello")
 public class HelloService {
     private static String hostName;
+    private static String ipAddress;
 
     HelloService() {
         try {
             hostName = InetAddress.getLocalHost().getHostName();
+            ipAddress = InetAddress.getLocalHost().getHostAddress();
         } catch (Exception ex) {
             hostName = "Unknown";
+            ipAddress = "0.0.0.0";
         }
     }
 
     @GET
     @Produces("text/plain")
     public String getHello() {
-        return String.format("Hello from %s", hostName);
+        return String.format("Hello from %s (%s)", hostName, ipAddress);
     }
 }
