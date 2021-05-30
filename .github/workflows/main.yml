@@ -7,6 +7,7 @@ env:
   CLUSTER_NAME: democluster
   CLUSTER_RES_GROUP: demo-ing
   NAMESPACE: container-demo-ns
+  SECRET_NAME: demo-cr
   
 
 jobs:
@@ -51,6 +52,16 @@ jobs:
           cluster-name: ${{ env.CLUSTER_NAME }}
           resource-group: ${{ env.CLUSTER_RES_GROUP }}
 
-      # Create namespace if doesn't exist
-      - run: |
-          kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -
+      - name: Check if namespace exists, create if not.
+        run: |
+          kubectl create namespace ${{ env.NAMESPACE }} --dry-run=client -o json | kubectl apply -f -
+
+      - name: Create image pull secret for ACR
+        uses: azure/k8s-create-secret@v1
+        with:
+          container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_SECRET }}
+          secret-name: ${{ env.SECRET }}
+          namespace: ${{ env.NAMESPACE }}
+          force: true
