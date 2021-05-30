@@ -4,6 +4,9 @@ on: [push]
 env:
   REGISTRY_NAME: pickleddragon
   APP_NAME: container-demo
+  CLUSTER_NAME: democluster
+  CLUSTER_RES_GROUP: demo-ing
+  NAMESPACE: container-demo-ns
   
 
 jobs:
@@ -40,3 +43,14 @@ jobs:
         run: |
           docker build . -t ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
           docker push ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
+
+      - name: Set AKS cluster context
+        uses: azure/aks-set-context@v1
+        with:
+          creds: '${{ secrets.AZURE_CREDS }}'
+          cluster-name: ${{ env.CLUSTER_NAME }}
+          resource-group: ${{ env.CLUSTER_RES_GROUP }}
+
+      # Create namespace if doesn't exist
+      - run: |
+          kubectl create namespace ${{ env.NAMESPACE }} --dry-run -o json | kubectl apply -f -

@@ -24,3 +24,8 @@ Get your credentials from azure
 ```shell
 az ad sp create-for-rbac --name "myApp" --role contributor --scopes /subscriptions/<SUBSCRIPTION_ID>/resourceGroups/<RESOURCE_GROUP> --sdk-auth
 ```
+
+Cluster status
+```shell
+az aks show --name democluster --resource-group demo-ing
+```
