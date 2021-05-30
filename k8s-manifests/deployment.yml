@@ -6,7 +6,7 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: containter-demo
+      app: container-demo
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -15,12 +15,12 @@ spec:
   template:
     metadata:
       labels:
-        app: containter-demo
+        app: container-demo
     spec:
       nodeSelector:
         "beta.kubernetes.io/os": linux
       containers:
-        - name: container-demo-pods
+        - name: container-demo
           image: pickleddragon.azurecr.io/container-demo:1.0
           ports:
             - containerPort: 8080
