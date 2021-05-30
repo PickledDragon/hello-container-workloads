@@ -72,6 +72,7 @@ jobs:
           manifests: |
             k8s-manifests/deployment.yml
             k8s-manifests/service.yml
+            k8s-manifests/ingress.yml
           images: |
               ${{ env.REGISTRY_NAME }}.azurecr.io/${{ env.APP_NAME }}:${{ github.sha }}
           imagepullsecrets: |
