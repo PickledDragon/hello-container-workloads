@@ -62,6 +62,6 @@ jobs:
           container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
           container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
           container-registry-password: ${{ secrets.REGISTRY_SECRET }}
-          secret-name: ${{ env.SECRET }}
+          secret-name: ${{ env.SECRET_NAME }}
           namespace: ${{ env.NAMESPACE }}
           force: true
