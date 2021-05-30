@@ -23,7 +23,7 @@ spec:
         - name: containter-demo
           image: pickleddragon.azurecr.io/container-demo:1.0
           ports:
-            - containerPort: 8080
+            - containerPort: 8085
           resources:
             requests:
               cpu: 250m
