@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: container-demo
 spec:
-  replicas: 4
+  replicas: 2
   selector:
     matchLabels:
       app: container-demo
@@ -24,6 +24,10 @@ spec:
           image: pickleddragon.azurecr.io/container-demo:1.0
           ports:
             - containerPort: 8080
+          readinessProbe:
+          httpGet:
+            path: /
+            port: 8080
           resources:
             requests:
               cpu: 250m
